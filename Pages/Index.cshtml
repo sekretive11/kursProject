@@ -1,0 +1,327 @@
+﻿@page
+@model KursProject.Pages.IndexModel
+
+<head>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f5f8fa;
+            color: #333;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+
+        .form-generate {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+            margin-bottom: 2rem;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .col-md-6 {
+            flex: 1;
+            min-width: 280px;
+            gap: 2rem;
+        }
+
+        .form-check {
+            margin-bottom: 0.5rem;
+        }
+
+        .form-check-label {
+            margin-left: 0.5rem;
+        }
+
+        .btn {
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .chart-container {
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+            margin-bottom: 2rem;
+        }
+
+        table.table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+        }
+
+            table.table th,
+            table.table td {
+                padding: 0.8rem 1rem;
+                text-align: left;
+                border-bottom: 1px solid #eaeaea;
+            }
+
+            table.table th {
+                background-color: #f0f4f8;
+                font-weight: 600;
+            }
+
+            table.table tbody tr:hover {
+                background-color: #f9fcff;
+            }
+
+        .mt-3 {
+            margin-top: 1rem;
+        }
+
+        .mt-4 {
+            margin-top: 2rem;
+        }
+    </style>
+
+</head>
+
+<div class="chart-container" style="margin-bottom: 2rem; text-align: center;">
+    <h1>Анализ рекламных затрат и продаж</h1>
+</div>
+
+<div class="row" style="display: flex; gap: 2rem;">
+    <div class="col-md-6" style="flex: 1.5;">
+        <form method="post" asp-page-handler="Generate" class="form-generate">
+            <h3>Компоненты затрат на рекламу</h3>
+            <div class="form-check">
+                <input class="form-check-input" asp-for="FormulaSelection.UseMntWines">
+                <label class="form-check-label" asp-for="FormulaSelection.UseMntWines">Напитки</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" asp-for="FormulaSelection.UseMntFruits">
+                <label class="form-check-label" asp-for="FormulaSelection.UseMntFruits">Фрукты</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" asp-for="FormulaSelection.UseMntMeatProducts">
+                <label class="form-check-label" asp-for="FormulaSelection.UseMntMeatProducts">Мясная продукция</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" asp-for="FormulaSelection.UseMntFishProducts">
+                <label class="form-check-label" asp-for="FormulaSelection.UseMntFishProducts">Рыба</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" asp-for="FormulaSelection.UseMntSweetProducts">
+                <label class="form-check-label" asp-for="FormulaSelection.UseMntSweetProducts">Сладости</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" asp-for="FormulaSelection.UseMntGoldProds">
+                <label class="form-check-label" asp-for="FormulaSelection.UseMntGoldProds">Ювелирные изделия</label>
+            </div>
+
+            <h3 class="mt-4">Компоненты объема продаж</h3>
+            <div class="form-check">
+                <input class="form-check-input" asp-for="FormulaSelection.UseNumDealsPurchases">
+                <label class="form-check-label" asp-for="FormulaSelection.UseNumDealsPurchases">Покупки со скидками</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" asp-for="FormulaSelection.UseNumWebPurchases">
+                <label class="form-check-label" asp-for="FormulaSelection.UseNumWebPurchases">Покупки через веб-сервисы</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" asp-for="FormulaSelection.UseNumCatalogPurchases">
+                <label class="form-check-label" asp-for="FormulaSelection.UseNumCatalogPurchases">Покупки через каталоги</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" asp-for="FormulaSelection.UseNumStorePurchases">
+                <label class="form-check-label" asp-for="FormulaSelection.UseNumStorePurchases">Покупки в магазинах</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3">Сгенерировать диаграммы</button>
+        </form>
+        @if (Model.Correlation.HasValue)
+        {
+            <div class="chart-container">
+                <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                    <div>
+                        <h3>Результаты анализа:</h3>
+                        <p>Коэффициент корреляции: <strong>@Model.Correlation.Value.ToString("0.00")</strong></p>
+                        <p>Уравнение линейной регрессии: <strong>y = @Model.Regression.Slope.ToString("0.00")x + @Model.Regression.Intercept.ToString("0.00")</strong></p>
+                    </div>
+                    <div style="display: flex; align-items: center; justify-content: center; width: 200px;">
+                        <form method="post" asp-page-handler="GeneratePdf" class="PDF-form">
+                            <button type="submit" class="btn btn-success">Скачать PDF</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="chart-container">
+            <h2 class="mt-4">Данные</h2>
+            <details>
+                <summary style="cursor: pointer; font-weight: 600; font-size: 1.1rem; margin-bottom: 1rem;">Показать/скрыть таблицу</summary>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Канал</th>
+                            <th>Затраты</th>
+                            <th>Продажи</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.DataPoints)
+                        {
+                            <tr>
+                                <td>@item.Channel</td>
+                                <td>@item.AdCost.ToString("C")</td>
+                                <td>@item.SalesVolume.ToString("C")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </details>
+        </div>
+    </div>
+
+    <div class="col-md-6" style="flex: 3;">
+        @if (Model.DataPoints.Any())
+        {
+            <div class="chart-container">
+                <h3>Диаграмма корреляции</h3>
+                <canvas id="salesChart"></canvas>
+            </div>
+
+            @if (Model.Correlation.HasValue)
+            {
+                <div class="chart-container">
+                    <h3>Диаграмма регрессии</h3>
+                    <canvas id="regressionChart"></canvas>
+                </div>
+            }
+            <div class="chart-container">
+                <h3>Гистограмма средних продаж по диапазонам затрат</h3>
+                <canvas id="histogramChart"></canvas>
+            </div>
+
+        }
+    </div>
+</div>
+
+<script>
+    const isMobile = window.innerWidth <= 768;
+    const mobilePointRadius = isMobile ? 0.5 : 2;
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const salesCtx = document.getElementById('salesChart').getContext('2d');
+    new Chart(salesCtx, {
+        type: 'scatter',
+        data: {
+            datasets: [{
+                label: 'Затраты на рекламу vs Объём продаж',
+                data: @Html.Raw(Json.Serialize(Model.DataPoints.Select(d => new { x = d.AdCost, y = d.SalesVolume }))),
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+                pointRadius: 2
+            }]
+        },
+        options: {
+            scales: {
+                x: { title: { display: true, text: 'Затраты на рекламу' } },
+                y: { title: { display: true, text: 'Объём продаж' } }
+            }
+        }
+    });
+
+    @if (Model.Correlation.HasValue)
+    {
+        var regressionData = Json.Serialize(new[] {
+            new {
+                x = Model.DataPoints.Min(d => d.AdCost),
+                y = Model.Regression.Slope * Convert.ToDouble(Model.DataPoints.Min(d => d.AdCost)) + Model.Regression.Intercept
+            },
+            new {
+                x = Model.DataPoints.Max(d => d.AdCost),
+                y = Model.Regression.Slope * Convert.ToDouble(Model.DataPoints.Max(d => d.AdCost)) + Model.Regression.Intercept
+            }
+        });
+        <text>
+        const regressionCtx = document.getElementById('regressionChart').getContext('2d');
+        new Chart(regressionCtx, {
+            type: 'scatter',
+            data: {
+                datasets: [
+                    {
+                        label: 'Данные',
+                        data: @Html.Raw(Json.Serialize(Model.DataPoints.Select(d => new { x = d.AdCost, y = d.SalesVolume }))),
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1,
+                        pointRadius: 2
+                    },
+                    {
+                        label: 'Регрессия',
+                        data: @Html.Raw(regressionData),
+                        type: 'line',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 2,
+                        fill: false,
+                        pointRadius: 0
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    x: { title: { display: true, text: 'Затраты на рекламу' } },
+                    y: { title: { display: true, text: 'Объём продаж' } }
+                }
+            }
+        });
+        </text>
+    }
+
+    const histogramCtx = document.getElementById('histogramChart').getContext('2d');
+    new Chart(histogramCtx, {
+        type: 'bar',
+        data: {
+            labels: @Html.Raw(Json.Serialize(Model.HistogramData.Select(h => h.RangeLabel))),
+            datasets: [{
+                label: 'Средний объём продаж',
+                data: @Html.Raw(Json.Serialize(Model.HistogramData.Select(h => h.AverageSales))),
+                backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                x: { title: { display: true, text: 'Затраты на рекламу' } },
+                y: { beginAtZero: true, title: { display: true, text: 'Средний объём продаж' } }
+            }
+        }
+    });
+</script>
