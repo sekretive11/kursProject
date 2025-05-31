@@ -101,3 +101,9 @@ D:\Секретный\лабы\6 семак\ИСИС (близнюк)\курса
 D:\Секретный\лабы\6 семак\ИСИС (близнюк)\курсач\темки\KursProject\KursProject\obj\Release\net6.0\KursProject.pdb
 D:\Секретный\лабы\6 семак\ИСИС (близнюк)\курсач\темки\KursProject\KursProject\obj\Release\net6.0\KursProject.genruntimeconfig.cache
 D:\Секретный\лабы\6 семак\ИСИС (близнюк)\курсач\темки\KursProject\KursProject\obj\Release\net6.0\ref\KursProject.dll
+D:\Секретный\лабы\6 семак\ИСИС (близнюк)\курсач\темки\KursProject\KursProject\bin\Release\net6.0\out\web.config
+D:\Секретный\лабы\6 семак\ИСИС (близнюк)\курсач\темки\KursProject\KursProject\bin\Release\net6.0\out\appsettings.Development.json
+D:\Секретный\лабы\6 семак\ИСИС (близнюк)\курсач\темки\KursProject\KursProject\bin\Release\net6.0\out\appsettings.json
+D:\Секретный\лабы\6 семак\ИСИС (близнюк)\курсач\темки\KursProject\KursProject\bin\Release\net6.0\out\KursProject.deps.json
+D:\Секретный\лабы\6 семак\ИСИС (близнюк)\курсач\темки\KursProject\KursProject\bin\Release\net6.0\out\KursProject.runtimeconfig.json
+D:\Секретный\лабы\6 семак\ИСИС (близнюк)\курсач\темки\KursProject\KursProject\bin\Release\net6.0\out\KursProject.staticwebassets.endpoints.json

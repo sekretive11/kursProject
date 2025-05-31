@@ -1,6 +1,12 @@
 D:\Секретный\лабы\6 семак\ИСИС (близнюк)\курсач\темки\KursProject\KursProject\out\KursProject.exe
+D:\Секретный\лабы\6 семак\ИСИС (близнюк)\курсач\темки\KursProject\KursProject\out\out\web.config
 D:\Секретный\лабы\6 семак\ИСИС (близнюк)\курсач\темки\KursProject\KursProject\out\appsettings.Development.json
 D:\Секретный\лабы\6 семак\ИСИС (близнюк)\курсач\темки\KursProject\KursProject\out\appsettings.json
+D:\Секретный\лабы\6 семак\ИСИС (близнюк)\курсач\темки\KursProject\KursProject\out\out\appsettings.Development.json
+D:\Секретный\лабы\6 семак\ИСИС (близнюк)\курсач\темки\KursProject\KursProject\out\out\appsettings.json
+D:\Секретный\лабы\6 семак\ИСИС (близнюк)\курсач\темки\KursProject\KursProject\out\out\KursProject.deps.json
+D:\Секретный\лабы\6 семак\ИСИС (близнюк)\курсач\темки\KursProject\KursProject\out\out\KursProject.runtimeconfig.json
+D:\Секретный\лабы\6 семак\ИСИС (близнюк)\курсач\темки\KursProject\KursProject\out\out\KursProject.staticwebassets.endpoints.json
 D:\Секретный\лабы\6 семак\ИСИС (близнюк)\курсач\темки\KursProject\KursProject\out\LatoFont\Lato-Black.ttf
 D:\Секретный\лабы\6 семак\ИСИС (близнюк)\курсач\темки\KursProject\KursProject\out\LatoFont\Lato-BlackItalic.ttf
 D:\Секретный\лабы\6 семак\ИСИС (близнюк)\курсач\темки\KursProject\KursProject\out\LatoFont\Lato-Bold.ttf
