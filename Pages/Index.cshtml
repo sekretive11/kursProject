@@ -105,17 +105,40 @@
         .mt-4 {
             margin-top: 2rem;
         }
+
+        .header-style {
+            background-color: #B855FF;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-style:hover,
+        .header-style:active {
+            background-color: #5C55FF;
+        }
+
+        .headerh1-style {
+            color: #FFFFFF;
+        }
+
+        .block-style {
+            transition: background-color 0.3s ease;
+        }
+
+        .block-style:hover,
+        .block-style:active {
+                background-color: #D3FFFF;
+        }
     </style>
 
 </head>
 
-<div class="chart-container" style="margin-bottom: 2rem; text-align: center;">
-    <h1>Анализ рекламных затрат и продаж</h1>
+<div class="chart-container header-style" style="margin-bottom: 2rem; text-align: center;">
+    <h1 class="headerh1-style">Анализ рекламных затрат и продаж</h1>
 </div>
 
 <div class="row" style="display: flex; gap: 2rem;">
     <div class="col-md-6" style="flex: 1.5;">
-        <form method="post" asp-page-handler="Generate" class="form-generate">
+        <form method="post" asp-page-handler="Generate" class="form-generate block-style">
             <h3>Компоненты затрат на рекламу</h3>
             <div class="form-check">
                 <input class="form-check-input" asp-for="FormulaSelection.UseMntWines">
@@ -164,7 +187,7 @@
         </form>
         @if (Model.Correlation.HasValue)
         {
-            <div class="chart-container">
+            <div class="chart-container block-style">
                 <div style="display: flex; justify-content: space-between; align-items: stretch;">
                     <div>
                         <h3>Результаты анализа:</h3>
@@ -173,13 +196,23 @@
                     </div>
                     <div style="display: flex; align-items: center; justify-content: center; width: 200px;">
                         <form method="post" asp-page-handler="GeneratePdf" class="PDF-form">
+                            <input type="hidden" asp-for="FormulaSelection.UseMntWines" />
+                            <input type="hidden" asp-for="FormulaSelection.UseMntFruits" />
+                            <input type="hidden" asp-for="FormulaSelection.UseMntMeatProducts" />
+                            <input type="hidden" asp-for="FormulaSelection.UseMntFishProducts" />
+                            <input type="hidden" asp-for="FormulaSelection.UseMntSweetProducts" />
+                            <input type="hidden" asp-for="FormulaSelection.UseMntGoldProds" />
+                            <input type="hidden" asp-for="FormulaSelection.UseNumDealsPurchases" />
+                            <input type="hidden" asp-for="FormulaSelection.UseNumWebPurchases" />
+                            <input type="hidden" asp-for="FormulaSelection.UseNumCatalogPurchases" />
+                            <input type="hidden" asp-for="FormulaSelection.UseNumStorePurchases" />
                             <button type="submit" class="btn btn-success">Скачать PDF</button>
                         </form>
                     </div>
                 </div>
             </div>
         }
-        <div class="chart-container">
+        <div class="chart-container block-style">
             <h2 class="mt-4">Данные</h2>
             <details>
                 <summary style="cursor: pointer; font-weight: 600; font-size: 1.1rem; margin-bottom: 1rem;">Показать/скрыть таблицу</summary>
@@ -209,20 +242,20 @@
     <div class="col-md-6" style="flex: 3;">
         @if (Model.DataPoints.Any())
         {
-            <div class="chart-container">
+            <div class="chart-container block-style">
                 <h3>Диаграмма корреляции</h3>
                 <canvas id="salesChart"></canvas>
             </div>
 
             @if (Model.Correlation.HasValue)
             {
-                <div class="chart-container">
-                    <h3>Диаграмма регрессии</h3>
+                <div class="chart-container block-style">
+                    <h3>Диаграмма регрессионной зависимости</h3>
                     <canvas id="regressionChart"></canvas>
                 </div>
             }
-            <div class="chart-container">
-                <h3>Гистограмма средних продаж по диапазонам затрат</h3>
+            <div class="chart-container block-style">
+                <h3>Гистограмма средних объёмов продаж по диапазонам рекламных затрат</h3>
                 <canvas id="histogramChart"></canvas>
             </div>
 

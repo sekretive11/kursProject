@@ -91,7 +91,7 @@ namespace KursProject.Pages
         {
             DataPoints = await _context.MarketingData.ToListAsync();
             CalculateStats();
-            var pdfBytes = await GeneratePdfReportAsync();
+            var pdfBytes = await GeneratePdfReportAsync(FormulaSelection);
             return File(pdfBytes, "application/pdf", "MarketingReport.pdf");
         }
 
@@ -186,8 +186,10 @@ namespace KursProject.Pages
         }
 
 
-        private async Task<byte[]> GeneratePdfReportAsync()
+        private async Task<byte[]> GeneratePdfReportAsync(FormulaSelection currentSelection)
         {
+            Console.WriteLine($"UseMntWines: {currentSelection.UseMntWines}");
+
             QuestPDF.Settings.License = LicenseType.Community;
 
             var scatterChartTask = GenerateChartImage();
@@ -199,6 +201,22 @@ namespace KursProject.Pages
             var scatterChartImage = await scatterChartTask;
             var regressionChartImage = await regressionChartTask;
             var histogramChartImage = await histogramChartTask;
+
+            var selectedAdCosts = new List<string>();
+            if (currentSelection.UseMntWines) selectedAdCosts.Add("Напитки");
+            if (currentSelection.UseMntFruits) selectedAdCosts.Add("Фрукты");
+            if (currentSelection.UseMntMeatProducts) selectedAdCosts.Add("Мясная продукция");
+            if (currentSelection.UseMntFishProducts) selectedAdCosts.Add("Рыба");
+            if (currentSelection.UseMntSweetProducts) selectedAdCosts.Add("Сладости");
+            if (currentSelection.UseMntGoldProds) selectedAdCosts.Add("Ювелирные изделия");
+
+            var selectedSalesVolumes = new List<string>();
+            if (currentSelection.UseNumDealsPurchases) selectedSalesVolumes.Add("Покупки со скидками");
+            if (currentSelection.UseNumWebPurchases) selectedSalesVolumes.Add("Покупки через веб-сервисы");
+            if (currentSelection.UseNumCatalogPurchases) selectedSalesVolumes.Add("Покупки через каталоги");
+            if (currentSelection.UseNumStorePurchases) selectedSalesVolumes.Add("Покупки в магазинах");
+
+            Console.WriteLine($"Выбранные затраты: {string.Join(", ", selectedAdCosts)}");
 
             var document = Document.Create(container =>
             {
@@ -223,11 +241,23 @@ namespace KursProject.Pages
                             });
                     });
 
-
-
                     page.Content().Column(col =>
                     {
                         col.Spacing(20);
+
+                        col.Item().Text(text => {
+                            text.Span("Выбранные компоненты:").Bold();
+                        });
+
+                        col.Item().Text(text => {
+                            text.Span("Для затрат на рекламу: ").SemiBold();
+                            text.Span(string.Join(", ", selectedAdCosts));
+                        });
+
+                        col.Item().Text(text => {
+                            text.Span("Для объёмов продаж: ").SemiBold();
+                            text.Span(string.Join(", ", selectedSalesVolumes));
+                        });
 
                         col.Item().Text("1. График зависимости объёма продаж от рекламных затрат")
                             .Bold().FontSize(14).FontColor(Colors.Black);
