@@ -1,5 +1,8 @@
-﻿namespace KursProject.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace KursProject.Models
 {
+    [Table("MarketingData")]
     public class MarketingData
     {
         public int Id { get; set; }
