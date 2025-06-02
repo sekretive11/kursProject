@@ -24,7 +24,7 @@ namespace KursProject.Pages
             _csvDataService = csvDataService;
         }
 
-        public List<marketingdata> DataPoints { get; set; } = new();
+        public List<MarketingData> DataPoints { get; set; } = new();
         public List<(string RangeLabel, double AverageSales)> HistogramData { get; set; } = new();
 
         public double? Correlation { get; set; }
@@ -47,9 +47,9 @@ namespace KursProject.Pages
 
         public async Task OnGetAsync()
         {
-            if (!_context.marketingdata.Any())
+            if (!_context.MarketingData.Any())
             {
-                var csvData = _csvDataService.Loadmarketingdata("Datasets/ifood_df.csv", new FormulaSelection
+                var csvData = _csvDataService.LoadMarketingData("Datasets/ifood_df.csv", new FormulaSelection
                 {
                     UseMntWines = true,
                     UseMntFruits = true,
@@ -63,25 +63,25 @@ namespace KursProject.Pages
                     UseNumStorePurchases = true
                 });
 
-                await _context.marketingdata.AddRangeAsync(csvData);
+                await _context.MarketingData.AddRangeAsync(csvData);
                 await _context.SaveChangesAsync();
             }
 
-            DataPoints = await _context.marketingdata.ToListAsync();
+            DataPoints = await _context.MarketingData.ToListAsync();
             CalculateStats();
         }
 
         public async Task<IActionResult> OnPostGenerateAsync()
         {
-            _context.marketingdata.RemoveRange(_context.marketingdata);
+            _context.MarketingData.RemoveRange(_context.MarketingData);
             await _context.SaveChangesAsync();
 
-            var csvData = _csvDataService.Loadmarketingdata("Datasets/ifood_df.csv", FormulaSelection);
+            var csvData = _csvDataService.LoadMarketingData("Datasets/ifood_df.csv", FormulaSelection);
 
-            await _context.marketingdata.AddRangeAsync(csvData);
+            await _context.MarketingData.AddRangeAsync(csvData);
             await _context.SaveChangesAsync();
 
-            DataPoints = await _context.marketingdata.ToListAsync();
+            DataPoints = await _context.MarketingData.ToListAsync();
             CalculateStats();
 
             return Page();
@@ -89,7 +89,7 @@ namespace KursProject.Pages
 
         public async Task<IActionResult> OnPostGeneratePdfAsync()
         {
-            DataPoints = await _context.marketingdata.ToListAsync();
+            DataPoints = await _context.MarketingData.ToListAsync();
             CalculateStats();
             var pdfBytes = await GeneratePdfReportAsync(FormulaSelection);
             return File(pdfBytes, "application/pdf", "MarketingReport.pdf");

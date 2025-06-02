@@ -13,7 +13,7 @@ namespace KursProject.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "marketingdata",
+                name: "MarketingData",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -25,7 +25,7 @@ namespace KursProject.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_marketingdata", x => x.Id);
+                    table.PrimaryKey("PK_MarketingData", x => x.Id);
                 });
         }
 
@@ -33,7 +33,7 @@ namespace KursProject.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "marketingdata");
+                name: "MarketingData");
         }
     }
 }

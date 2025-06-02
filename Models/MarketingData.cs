@@ -2,7 +2,7 @@
 
 namespace KursProject.Models
 {
-    public class marketingdata
+    public class MarketingData
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }

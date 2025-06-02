@@ -22,7 +22,7 @@ namespace KursProject.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("KursProject.Models.marketingdata", b =>
+            modelBuilder.Entity("KursProject.Models.MarketingData", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -45,7 +45,7 @@ namespace KursProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("marketingdata");
+                    b.ToTable("MarketingData");
                 });
 #pragma warning restore 612, 618
         }

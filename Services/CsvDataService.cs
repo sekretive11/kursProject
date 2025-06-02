@@ -5,14 +5,14 @@ using System.Globalization;
 
 public class CsvDataService
 {
-    public List<marketingdata> Loadmarketingdata(string filePath, FormulaSelection selection)
+    public List<MarketingData> LoadMarketingData(string filePath, FormulaSelection selection)
     {
         using var reader = new StreamReader(filePath);
         using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
 
         var records = csv.GetRecords<dynamic>().ToList();
 
-        return records.Select(r => new marketingdata
+        return records.Select(r => new MarketingData
         {
             Channel = int.Parse(r.NumWebPurchases) > int.Parse(r.NumStorePurchases) ? "Online" : "Offline",
             AdCost = (selection.UseMntWines ? decimal.Parse(r.MntWines) : 0) +
