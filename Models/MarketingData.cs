@@ -2,7 +2,7 @@
 
 namespace KursProject.Models
 {
-    [Table("MarketingData")]
+    [Table("marketingdata")]
     public class MarketingData
     {
         public int Id { get; set; }
